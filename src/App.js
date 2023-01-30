@@ -1,7 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./routes/ErrorPage";
 import LoginPage from "./routes/LoginPage";
-import HomePage from "./routes/main/GoalPage";
 import TestPage from "./routes/main/TestPage";
 import TrialPage from "./routes/main/TrialPage";
 import RecommendPage from "./routes/main/RecommendPage";
@@ -18,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <HomePage />,
+        element: <GoalPage />,
       },
       {
         path: "/login",
