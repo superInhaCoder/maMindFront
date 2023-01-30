@@ -16,6 +16,14 @@ const NavContainer = styled.div`
   background-color: #ffffff;
 `;
 
+const ButtonBox = styled.button`
+  height: 86px;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
 const BottomNav = () => {
   const [currentMenu, setCurrentMenu] = useRecoilState(bottomMenuState);
   const navigate = useNavigate();
@@ -24,18 +32,18 @@ const BottomNav = () => {
       <NavContainer>
         {currentMenu === TEST ? (
           // <HeartPlus color='black' />
-          <button>
+          <ButtonBox>
             <img src='icon/test_tab_black.svg' />
-          </button>
+          </ButtonBox>
         ) : (
-          <button
+          <ButtonBox
             onClick={() => {
               navigate("/test");
               setCurrentMenu(TEST);
             }}
           >
             <img src='icon/test_tab_gray.svg' />
-          </button>
+          </ButtonBox>
           // <HeartPlus
           //   color='gray'
           //   onClick={() => {
@@ -45,32 +53,32 @@ const BottomNav = () => {
           // />
         )}
         {currentMenu === GOAL ? (
-          <button>
+          <ButtonBox>
             <img src='icon/goal_tab_black.svg' />
-          </button>
+          </ButtonBox>
         ) : (
-          <button
+          <ButtonBox
             onClick={() => {
               navigate("/goal");
               setCurrentMenu(GOAL);
             }}
           >
             <img src='icon/goal_tab_gray.svg' />
-          </button>
+          </ButtonBox>
         )}
         {currentMenu === CONSULT ? (
-          <button>
+          <ButtonBox>
             <img src='icon/counsel_tab_black.svg' />
-          </button>
+          </ButtonBox>
         ) : (
-          <button
+          <ButtonBox
             onClick={() => {
               navigate("/consult");
               setCurrentMenu(CONSULT);
             }}
           >
             <img src='icon/counsel_tab_gray.svg' />
-          </button>
+          </ButtonBox>
         )}
       </NavContainer>
     </>
