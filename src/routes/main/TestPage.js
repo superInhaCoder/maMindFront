@@ -42,7 +42,6 @@ const TestPage = () => {
 
   const [step, setStep] = useState(0);
   const [problemIdx, setProblemIdx] = useState(0);
-
   const [currentMenu, setCurrentMenu] = useRecoilState(bottomMenuState);
   useLayoutEffect(() => {
     setCurrentMenu(TEST);
@@ -50,17 +49,17 @@ const TestPage = () => {
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   customAxios
-  //     .get("/testitem")
-  //     .then((res) => {
-  //       setTestItem(res.data);
-  //     })
-  //     .catch((err) => {
-  //       alert(err);
-  //       console.log(err);
-  //     });
-  // }, []);
+  useEffect(() => {
+    customAxios
+      .post("/testitem", { type: 2 })
+      .then((res) => {
+        setTestItem(res.data);
+      })
+      .catch((err) => {
+        alert(err);
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Container className="bg-white h-[100vh]" size={1200}>
@@ -191,7 +190,10 @@ const TestPage = () => {
                         navigate("/recommend");
                       }, 600);
                     }, 1000);
-                  } else setProblemIdx(problemIdx + 1);
+                  } else {
+                    setProblemIdx(problemIdx + 5);
+                    window.scrollTo(0, 0);
+                  }
                 }}
                 size="xl"
                 radius="md"
