@@ -3,6 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { ChevronLeft } from "tabler-icons-react";
+import { SpaceBetween } from "../GoalPage";
 import { Row } from "./TodayGoal";
 
 const TopNav = styled.div`
@@ -49,12 +50,34 @@ const MidText = styled.div`
   margin-bottom: 8px;
   font-size: 13px;
   font-family: HanSanBold;
+  color: ${(props) => (props.color ? props.color : "#000000")};
 `;
 
 const SmallText = styled.div`
   margin-top: 10px;
   font-size: 10px;
   font-family: HanSanMedium;
+`;
+
+const CardBox = styled.div`
+  height: 70px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 15px;
+  margin: 5px -10px;
+  border-radius: 10px;
+  background-color: #ffffff;
+`;
+
+const IconBox = styled.div`
+  width: 39px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  background-color: ${(props) => props.color};
 `;
 
 function MyGraph() {
@@ -93,25 +116,39 @@ function MyGraph() {
           <SmallText>달성율</SmallText>
           <SmallText>목표 횟수</SmallText>
         </Row>
-
+        <CardBox>
+          <SpaceBetween>
+            <IconBox color={"#866EF4"}>
+              <img src='icon/emoji_01.svg' />
+            </IconBox>
+            <MidText>우울증 관련 목표</MidText>
+            <MidText>50%</MidText>
+            <MidText color={"#866EF4"}>2회</MidText>
+          </SpaceBetween>
+        </CardBox>
+        <CardBox>
+          <SpaceBetween>
+            <IconBox color={"#1AFFAD"}>
+              <img src='icon/emoji_02.svg' />
+            </IconBox>
+            <MidText>우울증 관련 목표</MidText>
+            <MidText>50%</MidText>
+            <MidText color={"#1AFFAD"}>2회</MidText>
+          </SpaceBetween>
+        </CardBox>
+        <CardBox>
+          <SpaceBetween style={{ lineHeight: "70px" }}>
+            <IconBox color={"#FFC81A"}>
+              <img src='icon/emoji_03.svg' />
+            </IconBox>
+            <MidText>우울증 관련 목표</MidText>
+            <MidText>50%</MidText>
+            <MidText color={"#FFC81A"}>2회</MidText>
+          </SpaceBetween>
+        </CardBox>
       </Paper>
     </div>
   );
-}
-
-const CardBox = styled.div`
-height: 70.5;
-display: flex;
-flex: 1;
-border-radius: 10px;
-`
-
-const Card=()=>{
-  return(
-    <Card>
-      
-    </Card>
-  )
 }
 
 export default MyGraph;
