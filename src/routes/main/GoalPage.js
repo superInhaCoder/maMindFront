@@ -4,9 +4,11 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { BorderRadius } from "tabler-icons-react";
+import { EmptyBox } from "../../components/Component";
 import BottomNavComponent from "../../components/pageForm/BottomNavComponent";
 import { bottomMenuState } from "../../state/CommonData";
 import { GOAL } from "../../utils/status";
+import MyGoal from "./goal/MyGoal";
 import TodayGoal, { Row } from "./goal/TodayGoal";
 
 const TopNavContainer = styled.div`
@@ -95,9 +97,10 @@ const GoalPage = () => {
           </Tabs.Panel>
 
           <Tabs.Panel value='my' pt='xs'>
-            Messages tab content
+            <MyGoal />
           </Tabs.Panel>
         </Tabs>
+        <EmptyBox height={100} />
       </Body>
     </BottomNavComponent>
   );
