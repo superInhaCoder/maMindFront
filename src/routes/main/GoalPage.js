@@ -34,7 +34,7 @@ const Bar = styled.div`
   background-color: black;
 `;
 
-const SpaceBetween = styled.div`
+export const SpaceBetween = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: row;
