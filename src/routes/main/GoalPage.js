@@ -1,11 +1,13 @@
-import { Accordion, Stack } from "@mantine/core";
+import { Accordion, Stack, Tabs } from "@mantine/core";
 import { IconPlus } from "@tabler/icons";
-import React, { useEffect, useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { BorderRadius } from "tabler-icons-react";
 import BottomNavComponent from "../../components/pageForm/BottomNavComponent";
 import { bottomMenuState } from "../../state/CommonData";
 import { GOAL } from "../../utils/status";
+import TodayGoal, { Row } from "./goal/TodayGoal";
 
 const TopNavContainer = styled.div`
   height: 116px;
@@ -14,7 +16,8 @@ const TopNavContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-  background-color: pink;
+  padding-bottom: 10px;
+  border-bottom: #e8e8e8 2px solid;
 `;
 
 const Body = styled.div`
@@ -23,130 +26,78 @@ const Body = styled.div`
   flex-direction: column;
 `;
 
-const LevelBox = styled.div`
-  width: 63px;
-  height: 20px;
-  border-radius: 10px;
-  background-color: #ffffff;
-  text-align: center;
-  line-height: 20px;
-  font-size: 11px;
-  font-weight: 400;
+const Bar = styled.div`
+  height: 22.5px;
+  width: 2px;
+  background-color: black;
 `;
 
-const TagBox = styled.div`
-  width: 100%;
-  height: 45px;
-  border-radius: 10px;
-  background-color: #e6e6e6;
-  line-height: 45px;
-  margin: 12px 0;
-  padding-left: 15px;
-  font-size: 13px;
-  font-weight: 700;
-`;
-
-const Title = styled.div`
-  font-size: 20px;
-  font-weight: 700;
-`;
-
-const SubTitle = styled.div`
-  font-size: 13px;
-  font-weight: 400;
-`;
-
-export const Row = styled.div`
+const SpaceBetween = styled.div`
+  width: 100vw;
   display: flex;
   flex-direction: row;
-`;
-
-const Time = styled.div`
-  margin-left: 7px;
-  font-size: 10px;
-  font-weight: 400;
-`;
-
-const TagButton = styled.button`
-  width: 100%;
-  height: 45px;
-  border-radius: 10px;
-  background-color: #866ef4;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 15px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
+  padding: 0 8%;
 `;
 
 const GoalPage = () => {
   const [currentMenu, setCurrentMenu] = useRecoilState(bottomMenuState);
+  const [activeTab, setActiveTab] = useState("today");
 
   useLayoutEffect(() => {
     setCurrentMenu(GOAL);
   }, []);
 
-  const Tag = ({ title, time }) => {
-    return (
-      <TagBox>
-        <Row>
-          <div>{title}</div>
-          <Time>{time}분</Time>
-        </Row>
-      </TagBox>
-    );
-  };
-
-  const Card = ({ value }) => {
-    return (
-      <Accordion.Item
-        value={value}
-        style={{ borderColor: "#D2CBCB", borderRadius: "12px", borderWidth: 2 }}
-      >
-        <Accordion.Control
-          style={{
-            backgroundColor: "#CAC9FF",
-            borderRadius: "10px",
-            borderColor: "#D2CBCB",
-            borderWidth: 2,
-          }}
-        >
-          <LevelBox>BEGINNER</LevelBox>
-          <SubTitle>유독 우울했던 </SubTitle>
-          <Title>미라클 모닝 30분</Title>
-        </Accordion.Control>
-        <Accordion.Panel
-          style={{
-            borderRadius: "10px",
-          }}
-        >
-          <Tag title={"잠자리 정리하기"} time={10} />
-          <Tag title={"잠자리 정리하기"} time={10} />
-          <Tag title={"잠자리 정리하기"} time={10} />
-          <TagButton>목표 도전하기</TagButton>
-        </Accordion.Panel>
-      </Accordion.Item>
-    );
-  };
-
   return (
     <BottomNavComponent>
       <Body>
-        <TopNavContainer>
-          <div>오늘의 목표</div>
-          <div>|</div>
-          <div>내 목표</div>
-        </TopNavContainer>
-        <Accordion
-          variant='separated'
-          style={{ marginLeft: "7%", marginRight: "7%" }}
-        >
-          <Card value='a' />
-          <Card value='b' />
-          <Card value='c' />
-          <Card value='d' />
-        </Accordion>
+        <Tabs value={activeTab} variant='pills' onTabChange={setActiveTab}>
+          <TopNavContainer>
+            <Tabs.List>
+              <SpaceBetween>
+                <Row>
+                  <Tabs.Tab
+                    value='today'
+                    style={{
+                      padding: 0,
+                      paddingRight: 7,
+                      backgroundColor: "#FFFFFF",
+                      color: activeTab === "today" ? "#130F0F" : "#8D8D8D",
+                      fontWeight: 700,
+                      fontSize: 20,
+                    }}
+                  >
+                    오늘의 목표
+                  </Tabs.Tab>
+                  <Bar />
+                  <Tabs.Tab
+                    value='my'
+                    style={{
+                      padding: 0,
+                      paddingLeft: 7,
+                      backgroundColor: "#FFFFFF",
+                      color: activeTab === "my" ? "#130F0F" : "#8D8D8D",
+                      fontWeight: 700,
+                      fontSize: 20,
+                    }}
+                  >
+                    내 목표
+                  </Tabs.Tab>
+                </Row>
+                <img src={"icon/search_icon.svg"} width={30} height={30} />
+              </SpaceBetween>
+            </Tabs.List>
+          </TopNavContainer>
+
+          <Tabs.Panel value='today' pt='xs'>
+            <TodayGoal />
+          </Tabs.Panel>
+
+          <Tabs.Panel value='my' pt='xs'>
+            Messages tab content
+          </Tabs.Panel>
+        </Tabs>
       </Body>
     </BottomNavComponent>
   );

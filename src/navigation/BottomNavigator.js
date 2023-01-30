@@ -14,6 +14,7 @@ const NavContainer = styled.div`
   justify-content: space-around;
   align-items: center;
   background-color: #ffffff;
+  border-top: #e9e9e9 1px solid;
 `;
 
 const ButtonBox = styled.button`
