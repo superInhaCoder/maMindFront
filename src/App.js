@@ -6,6 +6,7 @@ import TrialPage from "./routes/main/TrialPage";
 import RecommendPage from "./routes/main/RecommendPage";
 import ConsultPage from "./routes/main/ConsultPage";
 import GoalPage from "./routes/main/GoalPage";
+import ResultPage from "./routes/main/ResultPage";
 import { MantineProvider, createEmotionCache } from "@mantine/core";
 import React from "react";
 import "../src/index.css";
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/recommend",
         element: <RecommendPage />,
+      },
+      {
+        path: "/result",
+        element: <ResultPage />,
       },
       {
         path: "/consult",

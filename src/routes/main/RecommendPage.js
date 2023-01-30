@@ -6,6 +6,7 @@ import {
   Checks,
   X,
   ChartDots2,
+  Search,
 } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
 
@@ -18,7 +19,11 @@ const RecommendPage = () => {
         spacing={0}
         className={`mb-3 cursor-pointer p-4 bg-[${color}] rounded-xl`}
       >
-        <Stack align="center" className="mb-4 h-6 w-20 rounded-xl bg-white">
+        <Stack
+          align="center"
+          justify="center"
+          className="mb-4 h-6 w-20 rounded-xl bg-white"
+        >
           <p className="text-xs text-center">{tag}</p>
         </Stack>
         <p className="text-sm">{description}</p>
@@ -28,9 +33,22 @@ const RecommendPage = () => {
   };
   return (
     <>
-      <Container className=" animate-fadeLessUp bg-white h-[100vh]" size={1200}>
+      <div
+        className="bg-white h-[90px] shadow-sm sticky top-0 z-50 flex justify-between items-center p-5 md:p-10"
+        style={{ borderBottom: "1px solid rgba(0, 0, 0, 0.1)" }}
+      >
+        <Group className="mx-2 mt-8 h-full w-full" position="apart">
+          <span className="text-[24px] font-bold">내 감정 마주하기</span>
+          <Search size={24} />
+        </Group>
+      </div>
+      <Container className=" animate-fadeLessUp bg-white" size={1200}>
         <Stack className="bg-[#CAC9FF]" />
         <Stack className="bg-[#9795E7]" />
+        <Stack className="bg-[#85F3CC]" />
+        <Stack className="bg-[#5BFFC5]" />
+        <Stack className="bg-[#FFE287]" />
+        <Stack className="bg-[#FFD75A]" />
         <Stack className="mx-2 h-[100vh]" spacing={0}>
           <p className="my-4 text-xl font-bold">😢 #지금 나의 우울을 위해</p>
           <Stack
@@ -56,18 +74,31 @@ const RecommendPage = () => {
             "2nd-Test",
             "유독 우울했던 오늘 하루를 위해",
             "자존감 검사",
-            "#CAC9FF"
+            "#85F3CC"
           )}
           {testCard(
             "START-UP",
             "내일을 향한 발걸음",
-            "불안환경 발견 심리 검사",
-            "#9795E7"
+            "불안 환경 발견 심리 검사",
+            "#5BFFC5"
           )}
+
           <p className="my-4 text-xl font-bold">🐡 #나의 스트레스 진단하기</p>
+          {testCard(
+            "START-UP",
+            "내일을 향한 발걸음",
+            "불안 환경 발견 검사",
+            "#FFE287"
+          )}
+          {testCard(
+            "START-UP",
+            "내일을 향한 발걸음",
+            "스트레스 환경 발견 테스트",
+            "#FFD75A"
+          )}
           <Group
             position="center"
-            className="flex items-center justify-center cursor-pointer h-16 w-16 rounded-full bg-[#CAC9FF] shadow-lg fixed right-6 bottom-10"
+            className="flex items-center justify-center cursor-pointer h-16 w-16 rounded-full bg-white shadow-lg fixed right-6 bottom-10"
           >
             <ChartDots2 />
           </Group>

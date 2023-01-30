@@ -28,25 +28,25 @@ const TrialPage = () => {
 
   const testDemo = [
     {
-      image: "/test/test1.svg",
+      image: "/trial/test1.svg",
       title: "나의 일상 속 우울함의 정도는 어느정도 인가요?",
       left: "우울함",
       right: "안정됨",
     },
     {
-      image: "/test/test2.svg",
+      image: "/trial/test2.svg",
       title: "나의 일상 속 불안함의 정도는 어느정도 인가요?",
       left: "불안함",
       right: "안정됨",
     },
     {
-      image: "/test/test3.svg",
+      image: "/trial/test3.svg",
       title: "나의 자존감은 얼마나 떨어진 상태인가요?",
       left: "낮음",
       right: "높음",
     },
     {
-      image: "/test/test4.svg",
+      image: "/trial/test4.svg",
       title: "오늘 같은 날 산책 나갈 기분일까요?",
       left: "낮음",
       right: "높음",
