@@ -10,6 +10,7 @@ import ResultPage from "./routes/main/ResultPage";
 import { MantineProvider, createEmotionCache } from "@mantine/core";
 import React from "react";
 import "../src/index.css";
+import MyGraph from "./routes/main/goal/MyGraph";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: "/consult",
         element: <ConsultPage />,
+      },
+      {
+        path: "/my-graph",
+        element: <MyGraph />,
       },
     ],
   },

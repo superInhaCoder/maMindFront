@@ -69,50 +69,6 @@ const TagButton = styled.button`
 `;
 
 function TodayGoal() {
-  const Tag = ({ title, time }) => {
-    return (
-      <TagBox>
-        <Row>
-          <div>{title}</div>
-          <Time>{time}분</Time>
-        </Row>
-      </TagBox>
-    );
-  };
-
-  const Card = ({ value, level, title, subTitle }) => {
-    return (
-      <Accordion.Item
-        value={value}
-        style={{ borderColor: "#D2CBCB", borderRadius: "14px", borderWidth: 2 }}
-      >
-        <Accordion.Control
-          style={{
-            backgroundColor: "#CAC9FF",
-            borderRadius: "12px",
-            borderColor: "#D2CBCB",
-            borderWidth: 2,
-            padding: "10px 15px",
-          }}
-        >
-          <LevelBox>{level}</LevelBox>
-          <SubTitle>{subTitle} </SubTitle>
-          <Title>{title}</Title>
-        </Accordion.Control>
-        <Accordion.Panel
-          style={{
-            borderRadius: "12px",
-          }}
-        >
-          <Tag title={"잠자리 정리하기"} time={10} />
-          <Tag title={"잠자리 정리하기"} time={10} />
-          <Tag title={"잠자리 정리하기"} time={10} />
-          <TagButton>목표 도전하기</TagButton>
-        </Accordion.Panel>
-      </Accordion.Item>
-    );
-  };
-
   const Contents = () => {
     return (
       <Accordion
@@ -221,5 +177,54 @@ function TodayGoal() {
     </div>
   );
 }
+
+export const Tag = ({ title, time }) => {
+  return (
+    <TagBox>
+      <Row>
+        <div>{title}</div>
+        <Time>{time}분</Time>
+      </Row>
+    </TagBox>
+  );
+};
+
+export const Card = ({ value, level, title, subTitle }) => {
+  return (
+    <Accordion.Item
+      value={value}
+      style={{
+        borderColor: "#D2CBCB",
+        borderRadius: "14px",
+        borderWidth: 2,
+        marginBottom: 20,
+      }}
+    >
+      <Accordion.Control
+        style={{
+          backgroundColor: "#CAC9FF",
+          borderRadius: "12px",
+          borderColor: "#D2CBCB",
+          borderWidth: 2,
+          padding: "10px 15px",
+        }}
+      >
+        <LevelBox>{level}</LevelBox>
+        <SubTitle>{subTitle} </SubTitle>
+        <Title>{title}</Title>
+      </Accordion.Control>
+      <Accordion.Panel
+        style={{
+          borderRadius: 12,
+        }}
+      >
+        <Tag title={"잠자리 정리하기"} time={10} />
+        <Tag title={"잠자리 정리하기"} time={10} />
+        <Tag title={"잠자리 정리하기"} time={10} />
+        <TagButton>목표 도전하기</TagButton>
+      </Accordion.Panel>
+    </Accordion.Item>
+  );
+};
 
 export default TodayGoal;
