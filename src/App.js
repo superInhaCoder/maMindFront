@@ -5,7 +5,7 @@ import HomePage from "./routes/main/GoalPage";
 import TestPage from "./routes/main/TestPage";
 import ConsultPage from "./routes/main/ConsultPage";
 import GoalPage from "./routes/main/GoalPage";
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, createEmotionCache } from "@mantine/core";
 import React from "react";
 import "../src/index.css";
 
@@ -38,9 +38,22 @@ const router = createBrowserRouter([
   },
 ]);
 
+const myCache = createEmotionCache({
+  key: "mantine",
+  prepend: false,
+});
+
 function App() {
   return (
-    <MantineProvider withGlobalStyles withNormalizeCSS>
+    <MantineProvider
+      emotionCache={myCache}
+      withGlobalStyles
+      withNormalizeCSS
+      theme={{
+        /** Put your mantine theme override here */
+        colorScheme: "light",
+      }}
+    >
       <RouterProvider router={router} />
     </MantineProvider>
   );
