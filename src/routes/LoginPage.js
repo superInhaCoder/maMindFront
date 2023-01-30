@@ -3,6 +3,7 @@ import React from "react";
 import GoogleLoginComponent from "../components/GoogleLogin";
 import { BrandGoogle, BrandKickstarter, Checks, X } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -24,11 +25,9 @@ const LoginPage = () => {
             <p className="text-md">점진적인 나의 삶을 위해</p>
           </Stack>
           <Stack className="mt-36">
-            {/* <GoogleLoginComponent /> */}
+            <GoogleLoginComponent />
             <Button
-              onClick={() => {
-                navigate("/test");
-              }}
+              onClick={() => {}}
               size="lg"
               radius="md"
               color="gray"
