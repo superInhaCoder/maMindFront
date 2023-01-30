@@ -2,8 +2,10 @@ import { Button, Container, Stack, Center } from "@mantine/core";
 import React from "react";
 import GoogleLoginComponent from "../components/GoogleLogin";
 import { BrandGoogle, BrandKickstarter, Checks, X } from "tabler-icons-react";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Container className="bg-white h-[100vh]" size={1200}>
@@ -25,7 +27,7 @@ const LoginPage = () => {
             {/* <GoogleLoginComponent /> */}
             <Button
               onClick={() => {
-                window.location.replace("/test");
+                navigate("/test");
               }}
               size="lg"
               radius="md"
@@ -36,7 +38,7 @@ const LoginPage = () => {
             </Button>
             <Button
               onClick={() => {
-                window.location.replace("/test");
+                navigate("/test");
               }}
               size="lg"
               radius="md"

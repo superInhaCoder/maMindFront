@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { bottomMenuState } from "../state/CommonData";
 import { useRecoilState } from "recoil";
 import { CONSULT, GOAL, TEST } from "../utils/status";
+import { HeartPlus } from "tabler-icons-react";
 
 const NavContainer = styled.div`
   width: 100%;
@@ -22,6 +23,7 @@ const BottomNav = () => {
     <>
       <NavContainer>
         {currentMenu === TEST ? (
+          // <HeartPlus color='black' />
           <button>
             <img src='icon/test_tab_black.svg' />
           </button>
@@ -34,6 +36,13 @@ const BottomNav = () => {
           >
             <img src='icon/test_tab_gray.svg' />
           </button>
+          // <HeartPlus
+          //   color='gray'
+          //   onClick={() => {
+          //     navigate("/test");
+          //     setCurrentMenu(TEST);
+          //   }}
+          // />
         )}
         {currentMenu === GOAL ? (
           <button>
