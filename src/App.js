@@ -6,6 +6,8 @@ import TestPage from "./routes/main/TestPage";
 import ConsultPage from "./routes/main/ConsultPage";
 import GoalPage from "./routes/main/GoalPage";
 import { MantineProvider } from "@mantine/core";
+import React from "react";
+import "../src/index.css";
 
 const router = createBrowserRouter([
   {

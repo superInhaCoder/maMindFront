@@ -6,6 +6,7 @@ const LoginPage = () => {
   return (
     <>
       <GoogleLoginComponent />
+      <p className="text-3xl font-bold underline">Hello world!</p>
     </>
   );
 };
