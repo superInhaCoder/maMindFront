@@ -3,6 +3,7 @@ import ErrorPage from "./routes/ErrorPage";
 import LoginPage from "./routes/LoginPage";
 import HomePage from "./routes/main/GoalPage";
 import TestPage from "./routes/main/TestPage";
+import TrialPage from "./routes/main/TrialPage";
 import RecommendPage from "./routes/main/RecommendPage";
 import ConsultPage from "./routes/main/ConsultPage";
 import GoalPage from "./routes/main/GoalPage";
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "/goal",
         element: <GoalPage />,
+      },
+      {
+        path: "/trial",
+        element: <TrialPage />,
       },
       {
         path: "/test",
