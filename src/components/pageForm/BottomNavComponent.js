@@ -9,7 +9,7 @@ const Body = styled.div`
 
 const BottomNavContainer = styled.div`
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
 `;
 
