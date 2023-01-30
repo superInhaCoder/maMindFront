@@ -16,12 +16,11 @@ import {
   ChevronRight,
   CircleCheck,
   Router,
-  ChevronLeft,
 } from "tabler-icons-react";
 import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const TestPage = () => {
+const TrialPage = () => {
   const [step, setStep] = useState(0);
   const [problemIdx, setProblemIdx] = useState(0);
 
@@ -59,20 +58,15 @@ const TestPage = () => {
       <Stack className="mx-2 h-[100vh]" spacing={0}>
         {step === 0 ? (
           <>
-            <Stack
-              onClick={() => {
-                navigate("/recommend");
-              }}
-              className="mt-20"
-            >
-              <ChevronLeft />
-            </Stack>
+            <Center className="mt-20">
+              <img src="/onboarding_logo.svg" height={26} width={86} />
+            </Center>
             <Stack className="mt-12">
               <p className="m-0 p-0 font-bold text-xl animate-fadeLessUp text-center">
                 홀로 이겨내기 위한
               </p>
               <p className="p-0 font-bold text-2xl animate-fadeLessUp text-center">
-                우울증 마주하기 테스트
+                나의 감정 마주하기 테스트
               </p>
             </Stack>
             <Center className="mt-12">
@@ -83,7 +77,7 @@ const TestPage = () => {
               <p className="text-md text-center">
                 요즘 파도처럼 출렁이는 내 감정
               </p>
-              <p className="text-md text-center">MBTI 우울증 검사로 알아보기</p>
+              <p className="text-md text-center">간단한 테스트로 알아보기.</p>
             </Stack>
             <Stack className="mt-32">
               <Button
@@ -211,4 +205,4 @@ const TestPage = () => {
   );
 };
 
-export default TestPage;
+export default TrialPage;

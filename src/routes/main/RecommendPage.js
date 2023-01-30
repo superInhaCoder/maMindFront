@@ -1,55 +1,76 @@
-import { Button, Container, Stack, Center } from "@mantine/core";
+import { Button, Container, Stack, Center, Group } from "@mantine/core";
 import React from "react";
-import { BrandGoogle, BrandKickstarter, Checks, X } from "tabler-icons-react";
+import {
+  BrandGoogle,
+  BrandKickstarter,
+  Checks,
+  X,
+  ChartDots2,
+} from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
 
 const RecommendPage = () => {
   const navigate = useNavigate();
+
+  let testCard = (tag, description, title, color) => {
+    return (
+      <Stack
+        spacing={0}
+        className={`mb-3 cursor-pointer p-4 bg-[${color}] rounded-xl`}
+      >
+        <Stack align="center" className="mb-4 h-6 w-20 rounded-xl bg-white">
+          <p className="text-xs text-center">{tag}</p>
+        </Stack>
+        <p className="text-sm">{description}</p>
+        <p className="text-xl font-bold">{title}</p>
+      </Stack>
+    );
+  };
   return (
     <>
-      <Container className="bg-white h-[100vh]" size={1200}>
+      <Container className=" animate-fadeLessUp bg-white h-[100vh]" size={1200}>
+        <Stack className="bg-[#CAC9FF]" />
+        <Stack className="bg-[#9795E7]" />
         <Stack className="mx-2 h-[100vh]" spacing={0}>
-          <Stack className="mt-16">
-            <p className="m-0 p-0 font-bold text-xl">홀로 이겨내기 위한</p>
-            <p className="p-0 font-bold text-2xl">나의 마음 전환 서비스</p>
+          <p className="my-4 text-xl font-bold">😢 #지금 나의 우울을 위해</p>
+          <Stack
+            onClick={() => {
+              navigate("/test");
+            }}
+          >
+            {testCard(
+              "BEGINNER",
+              "유독 우울했던 오늘 하루를 위해",
+              "우울증 마주하기 검사",
+              "#CAC9FF"
+            )}
           </Stack>
-          <Center className="mt-6">
-            <img src="/mind_login.svg" width={297} height={206} />
-          </Center>
-          <Stack spacing={0} className="ml-4 mt-2">
-            <p className="text-md">
-              <strong>&quot;mamind&quot;</strong>와 함께
-            </p>
-            <p className="text-md">점진적인 나의 삶을 위해</p>
-          </Stack>
-          <Stack className="mt-36">
-            {/* <GoogleLoginComponent /> */}
-            <Button
-              onClick={() => {
-                navigate("/test");
-              }}
-              size="lg"
-              radius="md"
-              color="gray"
-              leftIcon={<BrandGoogle />}
-            >
-              Google 계정으로 로그인
-            </Button>
-            <Button
-              onClick={() => {
-                navigate("/test");
-              }}
-              size="lg"
-              radius="md"
-              color="yellow"
-              leftIcon={<BrandKickstarter />}
-            >
-              카카오톡으로 로그인
-            </Button>
-          </Stack>
-          <p className="mt-4 text-md text-gray-500 text-center">
-            아직 계정이 없으신가요?
-          </p>
+          {testCard(
+            "START-UP",
+            "유독 우울했던 오늘 하루를 위해",
+            "MBTI 우울증 마주하기 검사",
+            "#9795E7"
+          )}
+          <p className="my-4 text-xl font-bold">😵‍💫 #나의 불안 진단하기</p>
+          {testCard(
+            "2nd-Test",
+            "유독 우울했던 오늘 하루를 위해",
+            "자존감 검사",
+            "#CAC9FF"
+          )}
+          {testCard(
+            "START-UP",
+            "내일을 향한 발걸음",
+            "불안환경 발견 심리 검사",
+            "#9795E7"
+          )}
+          <p className="my-4 text-xl font-bold">🐡 #나의 스트레스 진단하기</p>
+          <Group
+            position="center"
+            className="flex items-center justify-center cursor-pointer h-16 w-16 rounded-full bg-[#CAC9FF] shadow-lg fixed right-6 bottom-10"
+          >
+            <ChartDots2 />
+          </Group>
         </Stack>
       </Container>
     </>
