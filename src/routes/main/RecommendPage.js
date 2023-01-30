@@ -1,10 +1,9 @@
 import { Button, Container, Stack, Center } from "@mantine/core";
 import React from "react";
-import GoogleLoginComponent from "../components/GoogleLogin";
 import { BrandGoogle, BrandKickstarter, Checks, X } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
 
-const LoginPage = () => {
+const RecommendPage = () => {
   const navigate = useNavigate();
   return (
     <>
@@ -57,4 +56,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default RecommendPage;

@@ -3,6 +3,7 @@ import ErrorPage from "./routes/ErrorPage";
 import LoginPage from "./routes/LoginPage";
 import HomePage from "./routes/main/GoalPage";
 import TestPage from "./routes/main/TestPage";
+import RecommendPage from "./routes/main/RecommendPage";
 import ConsultPage from "./routes/main/ConsultPage";
 import GoalPage from "./routes/main/GoalPage";
 import { MantineProvider, createEmotionCache } from "@mantine/core";
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/test",
         element: <TestPage />,
+      },
+      {
+        path: "/recommend",
+        element: <RecommendPage />,
       },
       {
         path: "/consult",
