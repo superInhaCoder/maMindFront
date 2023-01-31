@@ -9,6 +9,7 @@ import {
   Search,
 } from "tabler-icons-react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 
 const RecommendPage = () => {
   const navigate = useNavigate();
@@ -53,6 +54,7 @@ const RecommendPage = () => {
           <p className="my-4 text-xl font-bold">😢 #지금 나의 우울을 위해</p>
           <Stack
             onClick={() => {
+              localStorage.setItem("testType", 2);
               navigate("/test");
             }}
           >

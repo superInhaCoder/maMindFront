@@ -27,7 +27,9 @@ const LoginPage = () => {
           <Stack className="mt-36">
             <GoogleLoginComponent />
             <Button
-              onClick={() => {}}
+              onClick={() => {
+                navigate("/trial");
+              }}
               size="lg"
               radius="md"
               color="gray"
@@ -37,7 +39,7 @@ const LoginPage = () => {
             </Button>
             <Button
               onClick={() => {
-                navigate("/test");
+                navigate("/trial");
               }}
               size="lg"
               radius="md"
