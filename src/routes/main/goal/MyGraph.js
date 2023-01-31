@@ -131,10 +131,13 @@ function MyGraph() {
         setGraphSum(graphSum + res.data.우울);
         setGraphSum(graphSum + res.data.스트레스);
         setGraphSum(graphSum + res.data.불안);
+
+        if (graphSum === 0) setGraphSum(1);
       })
       .catch((err) => {
         console.log(err);
       });
+    console.log(graphSum);
   }, []);
 
   return (
@@ -162,9 +165,12 @@ function MyGraph() {
         <MidText>목표 비율</MidText>
         <Progress
           sections={[
-            { value: (myGraph.우울 / graphSum) * 100, color: "#866EF4" },
-            { value: (myGraph.스트레스 / graphSum) * 100, color: "#1AFFAD" },
-            { value: (myGraph.불안 / graphSum) * 100, color: "#FFC81A" },
+            // { value: (myGraph.우울 / graphSum) * 100, color: "#866EF4" },
+            // { value: (myGraph.스트레스 / graphSum) * 100, color: "#1AFFAD" },
+            // { value: (myGraph.불안 / graphSum) * 100, color: "#FFC81A" },
+            { value: 30, color: "#866EF4" },
+            { value: 25, color: "#1AFFAD" },
+            { value: 45, color: "#FFC81A" },
           ]}
         />
         <SmallTextBox>
@@ -196,9 +202,11 @@ function MyGraph() {
           <SpaceBetween style={{ lineHeight: "70px" }}>
             <MidText style={{ width: "110px" }}>우울증 관련 목표</MidText>
             <MidText style={{ width: "40px" }}>
-              {(myGraph.우울 / graphSum) * 100}%
+              {/* {graphSum === 0 ? 0 : (myGraph.우울 / graphSum) * 100}% */}
+              30%
             </MidText>
-            <MidText color={"#866EF4"}>{myGraph.우울}회</MidText>
+            {/* <MidText color={"#866EF4"}>{myGraph.우울}회</MidText> */}
+            <MidText color={"#866EF4"}>6회</MidText>
           </SpaceBetween>
         </CardBox>
         <CardBox>
@@ -208,9 +216,11 @@ function MyGraph() {
           <SpaceBetween style={{ lineHeight: "70px" }}>
             <MidText style={{ width: "110px" }}>불안 관련 목표</MidText>
             <MidText style={{ width: "40px" }}>
-              {(myGraph.불안 / graphSum) * 100}%
+              {/* {graphSum === 0 ? 0 : (myGraph.불안 / graphSum) * 100}% */}
+              25%
             </MidText>
-            <MidText color={"#2DDF9F"}>{myGraph.불안}회</MidText>
+            {/* <MidText color={"#2DDF9F"}>{myGraph.불안}회</MidText> */}
+            <MidText color={"#2DDF9F"}>5회</MidText>
           </SpaceBetween>
         </CardBox>
         <CardBox>
@@ -220,9 +230,11 @@ function MyGraph() {
           <SpaceBetween style={{ lineHeight: "70px" }}>
             <MidText style={{ width: "110px" }}>스트레스 관련 목표</MidText>
             <MidText style={{ width: "40px" }}>
-              {(myGraph.스트레스 / graphSum) * 100}%
+              {/* {graphSum === 0 ? 0 : (myGraph.스트레스 / graphSum) * 100}% */}
+              45%
             </MidText>
-            <MidText color={"#FD5252"}>{myGraph.스트레스}회</MidText>
+            {/* <MidText color={"#FD5252"}>{myGraph.스트레스}회</MidText> */}
+            <MidText color={"#FD5252"}>9회</MidText>
           </SpaceBetween>
         </CardBox>
       </Paper>

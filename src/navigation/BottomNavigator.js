@@ -39,7 +39,7 @@ const BottomNav = () => {
         ) : (
           <ButtonBox
             onClick={() => {
-              navigate("/test");
+              navigate("/recommend");
               setCurrentMenu(TEST);
             }}
           >
