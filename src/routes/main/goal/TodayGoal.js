@@ -352,6 +352,7 @@ export const Card = ({
   setTodayRestGoal,
   setTodayWorryGoal,
   setTodayStressGoal,
+  color,
 }) => {
   return (
     <Accordion.Item
@@ -361,6 +362,7 @@ export const Card = ({
         borderRadius: "14px",
         borderWidth: 2,
         marginBottom: 20,
+        backgroundColor: color,
       }}
     >
       <Accordion.Control
