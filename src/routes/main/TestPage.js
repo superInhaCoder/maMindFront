@@ -9,6 +9,8 @@ import {
   Loader,
   Group,
   Grid,
+  Radio,
+  SegmentedControl,
 } from "@mantine/core";
 import {
   BrandGoogle,
@@ -19,6 +21,7 @@ import {
   CircleCheck,
   Router,
   ChevronLeft,
+  Minimize,
 } from "tabler-icons-react";
 import { SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +32,53 @@ import { bottomMenuState } from "../../state/CommonData";
 import { customAxios } from "../../config/api";
 
 const TestPage = () => {
+  let validation = () => {
+    let flag = true;
+    for (
+      let i = sectionIndex * 5;
+      i < Math.min((sectionIndex + 1) * 5, testItem.length);
+      i++
+    ) {
+      if (isTouched[i] === false) {
+        flag = false;
+        return;
+      }
+    }
+    return flag;
+  };
+
   const [testItem, setTestItem] = useState([]);
+  const imageList = [
+    "/trial/test1.svg",
+    "/trial/test2.svg",
+    "/trial/test3.svg",
+    "/trial/test4.svg",
+  ];
+  const [answer, setAnswer] = useState([
+    3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,
+  ]);
+  const [isTouched, setIsTouched] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   const [sectionIndex, setSectionIndex] = useState(0);
   const MARKS = [
@@ -50,6 +99,11 @@ const TestPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (
+      localStorage.getItem("testType") < 2 &&
+      localStorage.getItem("testType") > 4
+    )
+      return;
     customAxios
       .post("/testitem", { type: 2 })
       .then((res) => {
@@ -59,11 +113,11 @@ const TestPage = () => {
         alert(err);
         console.log(err);
       });
-  }, []);
+  }, [localStorage.getItem("testType")]);
 
   return (
-    <Container className="bg-white h-[100vh]" size={1200}>
-      <Stack className="mx-2 h-[100vh]" spacing={0}>
+    <Container className="bg-white" size={1200}>
+      <Stack className="mx-2" spacing={0}>
         {step === 0 ? (
           <>
             <Stack
@@ -116,16 +170,22 @@ const TestPage = () => {
                 <Group position="apart" className="mt-8 w-full">
                   <ChevronLeft
                     onClick={() => {
+                      if (sectionIndex !== 0) setSectionIndex(sectionIndex - 1);
+                    }}
+                    size={20}
+                    color={sectionIndex === 0 ? "white" : "black"}
+                  />
+                  <span className="text-[20px]">우울증 마주하기 검사</span>
+                  <X
+                    onClick={() => {
                       navigate(-1);
                     }}
                     size={20}
                   />
-                  <span className="text-[20px]">우울증 마주하기 검사</span>
-                  <X size={20} />
                 </Group>
                 <Progress
                   className="mb-8"
-                  value={((problemIdx + 1) * 100) / testItem.length}
+                  value={((sectionIndex + 1) * 100 * 5) / testItem.length}
                   size="xl"
                   color="violet"
                 />
@@ -133,19 +193,25 @@ const TestPage = () => {
             </div>
 
             <Center className="mt-12">
-              <img src={"test/test1"} width={240} height={168} />
+              <img src={imageList[sectionIndex]} width={240} height={168} />
             </Center>
             {testItem.map(({ content }, i) => {
               return (
                 <Stack key={i}>
-                  {i >= sectionIndex && i < sectionIndex + 5 ? (
+                  {i >= sectionIndex * 5 && i < sectionIndex * 5 + 5 ? (
                     <Stack spacing={0}>
                       <Stack className="mt-6" spacing={0}>
                         <span>
                           <Grid className="w-full" mt={20}>
                             <Grid.Col span="content">
-                              <span className=" text-violet-500 text-2xl font-bold">
-                                Q. {problemIdx + parseInt(i) + 1}{" "}
+                              <span
+                                className={`${
+                                  isTouched[i] === false
+                                    ? "text-gray-500"
+                                    : "text-violet-500"
+                                } text-2xl font-bold`}
+                              >
+                                Q. {i + 1}{" "}
                               </span>
                             </Grid.Col>
                             <Grid.Col span="auto">
@@ -156,16 +222,30 @@ const TestPage = () => {
                           </Grid>
                         </span>
                       </Stack>
-                      <Slider
-                        label={(val) =>
-                          MARKS.find((mark) => mark.value === val).label
-                        }
-                        thumbSize={16}
-                        defaultValue={50}
+                      <SegmentedControl
+                        color={isTouched[i] === false ? "gray" : "violet"}
                         size="xl"
-                        step={25}
-                        showLabelOnHover={false}
-                        color="violet"
+                        value={answer[i].toString()}
+                        onChange={(value) => {
+                          let changedAnswer = answer.map((cur, idx) => {
+                            if (idx === i) return parseInt(value);
+                            else return cur;
+                          });
+                          setAnswer(changedAnswer);
+                          let changedIsTouched = isTouched.map((cur, idx) => {
+                            if (idx === i) {
+                              return true;
+                            } else return cur;
+                          });
+                          setIsTouched(changedIsTouched);
+                        }}
+                        data={[
+                          { label: "", value: "1" },
+                          { label: "", value: "2" },
+                          { label: "", value: "3" },
+                          { label: "", value: "4" },
+                          { label: "", value: "5" },
+                        ]}
                       />
                       <Group position="apart">
                         <span className="text-md font-bold">매우 아니다</span>
@@ -178,28 +258,52 @@ const TestPage = () => {
                 </Stack>
               );
             })}
-            <Stack className="mt-32">
+            <Stack className="h-[120px] w-full" />
+            <Stack className="z-50 sticky bottom-8">
               <Button
                 className="shadow-xl"
                 onClick={() => {
-                  if (problemIdx === testItem.length - 1) {
+                  if ((sectionIndex + 1) * 5 >= testItem.length) {
+                    let sum = 0;
+                    for (let j = 0; j < 20; j++) {
+                      sum += answer[j];
+                    }
+                    localStorage.setItem("score", sum);
+                    customAxios
+                      .post("/user/check", {
+                        value: answer,
+                        selected_date: "2023-01-31",
+                        test_list_id: localStorage.getItem("testType"),
+                      })
+                      .then((res) => {
+                        setTestItem(res.data);
+                      })
+                      .catch((err) => {
+                        alert(err);
+                        console.log(err);
+                      });
                     setStep(2);
                     setTimeout(() => {
                       setStep(3);
                       setTimeout(() => {
-                        navigate("/recommend");
+                        navigate("/result");
                       }, 600);
                     }, 1000);
                   } else {
-                    setProblemIdx(problemIdx + 5);
-                    window.scrollTo(0, 0);
+                    setSectionIndex(sectionIndex + 1);
+                    setTimeout(() => {
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }, 50);
                   }
                 }}
                 size="xl"
                 radius="md"
                 color="violet"
+                disabled={!validation()}
               >
-                {problemIdx === testItem.length - 1 ? "완료하기" : "다음문항"}
+                {(sectionIndex + 1) * 5 >= testItem.length
+                  ? "완료하기"
+                  : "다음문항"}
               </Button>
             </Stack>
           </>

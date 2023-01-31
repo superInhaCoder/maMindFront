@@ -72,7 +72,7 @@ const ResultPage = () => {
             <Group className="mb-4" position="apart">
               <span className=" text-[24px] font-bold">나의 우울증 지수</span>
               <span className="mr-4 text-[30px] font-bold text-[#FFD75A]">
-                39점
+                {localStorage.getItem("score")}점
               </span>
             </Group>
             <p className="my-4 text-lg font-bold">
@@ -125,10 +125,26 @@ const ResultPage = () => {
             제공합니다.
           </p>
           <Stack className="sticky bottom-8">
-            <Button className="shadow-xl" size="xl" radius="md" color="gray">
+            <Button
+              onClick={() => {
+                navigate("/consult");
+              }}
+              className="shadow-xl"
+              size="xl"
+              radius="md"
+              color="gray"
+            >
               상담 문의하기
             </Button>
-            <Button className="shadow-xl" size="xl" radius="md" color="violet">
+            <Button
+              onClick={() => {
+                navigate("/recommend");
+              }}
+              className="shadow-xl"
+              size="xl"
+              radius="md"
+              color="violet"
+            >
               검사 완료
             </Button>
           </Stack>
