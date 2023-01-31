@@ -1,9 +1,18 @@
 import { Accordion } from "@mantine/core";
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { EmptyBox } from "../../../components/Component";
 import { Card } from "./TodayGoal";
+import { useRecoilState } from "recoil";
+import {
+  myGoalState,
+  todayGoalDepressState,
+  todayGoalStressState,
+  todayGoalUnRestState,
+  todayGoalWorryState,
+} from "../../../state/PageData";
+import { customAxios } from "../../../config/api";
 
 const Body = styled.div`
   /* display: flex;
@@ -23,30 +32,42 @@ const Title = styled.div`
 function MyGoal() {
   const navigate = useNavigate();
 
+  const [myGoalStress, setMyGoalStress] = useRecoilState(myGoalState);
+
+  useEffect(() => {
+    customAxios
+      .get("/user/goal")
+      .then((res) => {
+        console.log(res.data);
+        setMyGoalStress(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   const Contents = () => {
     return (
       <Accordion
         variant='separated'
         style={{ marginLeft: "7%", marginRight: "7%" }}
       >
-        <Card
-          value='a'
-          level='BEGINNER'
-          title='미라클 모닝 30분'
-          subTitle={"유독 우울했던 오늘을 위해"}
-        />
-        <Card
-          value='b'
-          level='BEGINNER'
-          title='미라클 모닝 30분'
-          subTitle={"유독 우울했던 오늘을 위해"}
-        />
-        <Card
-          value='c'
-          level='BEGINNER'
-          title='미라클 모닝 30분'
-          subTitle={"유독 우울했던 오늘을 위해"}
-        />
+        {myGoalStress.map((goal) =>
+          goal.now === 1 ? (
+            <></>
+          ) : (
+            <Card
+              value={String(goal.id)}
+              level={goal.step}
+              title={goal.subject}
+              subTitle={goal.content}
+              contentTitle1={goal.mission1}
+              contentTitle2={goal.mission2}
+              contentTitle3={goal.mission3}
+              goalId={goal.id}
+            />
+          )
+        )}
       </Accordion>
     );
   };
@@ -54,10 +75,47 @@ function MyGoal() {
   return (
     <Body>
       <Title>현재 내 목표</Title>
-      <Contents />
+      <Accordion
+        variant='separated'
+        style={{ marginLeft: "7%", marginRight: "7%" }}
+      >
+        {myGoalStress.map(
+          (goal) =>
+            !goal?.success && (
+              <Card
+                value={String(goal.id)}
+                level={goal.step}
+                title={goal.subject}
+                subTitle={goal.content}
+                contentTitle1={goal.mission1}
+                contentTitle2={goal.mission2}
+                contentTitle3={goal.mission3}
+                goalId={goal.id}
+              />
+            )
+        )}
+      </Accordion>
       <EmptyBox height={1} />
       <Title>오늘 완료된 목표</Title>
-      <Contents />
+      <Accordion
+        variant='separated'
+        style={{ marginLeft: "7%", marginRight: "7%" }}
+      >
+        {myGoalStress.map((goal) => {
+          goal?.success && (
+            <Card
+              value={String(goal.id)}
+              level={goal.step}
+              title={goal.subject}
+              subTitle={goal.content}
+              contentTitle1={goal.mission1}
+              contentTitle2={goal.mission2}
+              contentTitle3={goal.mission3}
+              goalId={goal.id}
+            />
+          );
+        })}
+      </Accordion>
       <img
         src='icon/graph_float_button.svg'
         style={{ position: "fixed", bottom: 109, right: 29 }}
