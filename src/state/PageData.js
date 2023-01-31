@@ -45,3 +45,9 @@ export const myGraphState = atom({
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
+
+export const allGallState = atom({
+  key: "allGall",
+  default: [],
+  effects_UNSTABLE: [persistAtom],
+});

@@ -52,36 +52,11 @@ function MyGoal() {
         variant='separated'
         style={{ marginLeft: "7%", marginRight: "7%" }}
       >
-        {myGoalStress.map((goal) =>
-          goal.now === 1 ? (
-            <></>
-          ) : (
-            <Card
-              value={String(goal.id)}
-              level={goal.step}
-              title={goal.subject}
-              subTitle={goal.content}
-              contentTitle1={goal.mission1}
-              contentTitle2={goal.mission2}
-              contentTitle3={goal.mission3}
-              goalId={goal.id}
-            />
-          )
-        )}
-      </Accordion>
-    );
-  };
-
-  return (
-    <Body>
-      <Title>현재 내 목표</Title>
-      <Accordion
-        variant='separated'
-        style={{ marginLeft: "7%", marginRight: "7%" }}
-      >
-        {myGoalStress.map(
-          (goal) =>
-            !goal?.success && (
+        {myGoalStress &&
+          myGoalStress.map((goal) =>
+            goal.success === 1 ? (
+              <></>
+            ) : (
               <Card
                 value={String(goal.id)}
                 level={goal.step}
@@ -93,7 +68,34 @@ function MyGoal() {
                 goalId={goal.id}
               />
             )
-        )}
+          )}
+      </Accordion>
+    );
+  };
+
+  return (
+    <Body>
+      <Title>현재 내 목표</Title>
+      <Accordion
+        variant='separated'
+        style={{ marginLeft: "7%", marginRight: "7%" }}
+      >
+        {myGoalStress &&
+          myGoalStress.map(
+            (goal) =>
+              !goal?.success && (
+                <Card
+                  value={String(goal.id)}
+                  level={goal.data.step}
+                  title={goal.data.subject}
+                  subTitle={goal.data.ontent}
+                  contentTitle1={goal.data.mission1}
+                  contentTitle2={goal.data.mission2}
+                  contentTitle3={goal.data.mission3}
+                  goalId={goal.id}
+                />
+              )
+          )}
       </Accordion>
       <EmptyBox height={1} />
       <Title>오늘 완료된 목표</Title>
@@ -101,20 +103,21 @@ function MyGoal() {
         variant='separated'
         style={{ marginLeft: "7%", marginRight: "7%" }}
       >
-        {myGoalStress.map((goal) => {
-          goal?.success && (
-            <Card
-              value={String(goal.id)}
-              level={goal.step}
-              title={goal.subject}
-              subTitle={goal.content}
-              contentTitle1={goal.mission1}
-              contentTitle2={goal.mission2}
-              contentTitle3={goal.mission3}
-              goalId={goal.id}
-            />
-          );
-        })}
+        {myGoalStress &&
+          myGoalStress.map((goal) => {
+            goal?.success && (
+              <Card
+                value={String(goal.id)}
+                level={goal.step}
+                title={goal.subject}
+                subTitle={goal.content}
+                contentTitle1={goal.mission1}
+                contentTitle2={goal.mission2}
+                contentTitle3={goal.mission3}
+                goalId={goal.id}
+              />
+            );
+          })}
       </Accordion>
       <img
         src='icon/graph_float_button.svg'
