@@ -353,6 +353,7 @@ export const Card = ({
   setTodayWorryGoal,
   setTodayStressGoal,
   color,
+  isButton = true,
 }) => {
   return (
     <Accordion.Item
@@ -386,24 +387,26 @@ export const Card = ({
         <Tag title={contentTitle1} time={10} />
         <Tag title={contentTitle2} time={10} />
         <Tag title={contentTitle3} time={10} />
-        <TagButton
-          onClick={() => {
-            customAxios
-              .post("/user/goal", { goal_id: goalId, category: category })
-              .then((res) => {
-                console.log(res.data);
-                if (category === 1) setTodayGoalDepress(res.data);
-                else if (category === 2) setTodayRestGoal(res.data);
-                else if (category === 3) setTodayWorryGoal(res.data);
-                else if (category === 4) setTodayStressGoal(res.data);
-              })
-              .catch((err) => {
-                console.log(err);
-              });
-          }}
-        >
-          목표 도전하기
-        </TagButton>
+        {isButton && (
+          <TagButton
+            onClick={() => {
+              customAxios
+                .post("/user/goal", { goal_id: goalId, category: category })
+                .then((res) => {
+                  console.log(res.data);
+                  if (category === 1) setTodayGoalDepress(res.data);
+                  else if (category === 2) setTodayRestGoal(res.data);
+                  else if (category === 3) setTodayWorryGoal(res.data);
+                  else if (category === 4) setTodayStressGoal(res.data);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            }}
+          >
+            목표 도전하기
+          </TagButton>
+        )}
       </Accordion.Panel>
     </Accordion.Item>
   );

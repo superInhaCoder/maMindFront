@@ -93,6 +93,7 @@ function MyGoal() {
                   contentTitle2={goal.data.mission2}
                   contentTitle3={goal.data.mission3}
                   goalId={goal.id}
+                  isButton={false}
                 />
               )
           )}
@@ -115,6 +116,7 @@ function MyGoal() {
                 contentTitle2={goal.mission2}
                 contentTitle3={goal.mission3}
                 goalId={goal.id}
+                isButton={false}
               />
             );
           })}
