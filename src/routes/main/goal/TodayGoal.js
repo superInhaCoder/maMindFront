@@ -1,8 +1,16 @@
 import { Accordion, Tabs } from "@mantine/core";
-import React from "react";
+import React, { useEffect } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { customAxios } from "../../../config/api";
+import {
+  todayGoalDepressState,
+  todayGoalStressState,
+  todayGoalUnRestState,
+  todayGoalWorryState,
+} from "../../../state/PageData";
 
-const CategoryBox = styled.div`
+export const CategoryBox = styled.div`
   margin-left: 8%;
   margin-top: 5px;
   margin-bottom: 15px;
@@ -11,12 +19,11 @@ const CategoryBox = styled.div`
 const LevelBox = styled.div`
   width: 63px;
   height: 20px;
-
   border-radius: 10px;
   background-color: #ffffff;
   text-align: center;
   line-height: 20px;
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 400;
 `;
 
@@ -69,38 +76,160 @@ const TagButton = styled.button`
 `;
 
 function TodayGoal() {
-  const Contents = () => {
-    return (
-      <Accordion
-        variant='separated'
-        style={{ marginLeft: "7%", marginRight: "7%" }}
-      >
-        <Card
-          value='a'
-          level='BEGINNER'
-          title='미라클 모닝 30분'
-          subTitle={"유독 우울했던 오늘을 위해"}
-        />
-        <Card
-          value='b'
-          level='BEGINNER'
-          title='미라클 모닝 30분'
-          subTitle={"유독 우울했던 오늘을 위해"}
-        />
-        <Card
-          value='c'
-          level='BEGINNER'
-          title='미라클 모닝 30분'
-          subTitle={"유독 우울했던 오늘을 위해"}
-        />
-        <Card
-          value='d'
-          level='BEGINNER'
-          title='미라클 모닝 30분'
-          subTitle={"유독 우울했던 오늘을 위해"}
-        />
-      </Accordion>
-    );
+  const [todayGoalDepress, setTodayGoalDepress] = useRecoilState(
+    todayGoalDepressState
+  );
+  const [todayRestGoal, setTodayRestGoal] =
+    useRecoilState(todayGoalUnRestState);
+  const [todayWorryGoal, setTodayWorryGoal] =
+    useRecoilState(todayGoalWorryState);
+  const [todayStressGoal, setTodayStressGoal] =
+    useRecoilState(todayGoalStressState);
+
+  useEffect(() => {
+    customAxios
+      .post("/goallist", { category: 1 })
+      .then((res) => {
+        setTodayGoalDepress(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    customAxios
+      .post("/goallist", { category: 2 })
+      .then((res) => {
+        setTodayRestGoal(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    customAxios
+      .post("/goallist", { category: 3 })
+      .then((res) => {
+        setTodayWorryGoal(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    customAxios
+      .post("/goallist", { category: 4 })
+      .then((res) => {
+        setTodayStressGoal(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const Contents = ({ category }) => {
+    if (category === 1)
+      return (
+        <>
+          {todayGoalDepress &&
+            todayGoalDepress.map((goal) =>
+              goal.now === 1 ? (
+                <></>
+              ) : (
+                <Card
+                  value={String(goal.id)}
+                  level={goal.step}
+                  title={goal.subject}
+                  subTitle={goal.content}
+                  contentTitle1={goal.mission1}
+                  contentTitle2={goal.mission2}
+                  contentTitle3={goal.mission3}
+                  goalId={goal.id}
+                  category={category}
+                  setTodayGoalDepress={setTodayGoalDepress}
+                  setTodayRestGoal={setTodayRestGoal}
+                  setTodayWorryGoal={setTodayWorryGoal}
+                  setTodayStressGoal={setTodayStressGoal}
+                />
+              )
+            )}
+        </>
+      );
+    else if (category === 2)
+      return (
+        <>
+          {todayRestGoal &&
+            todayRestGoal.map((goal) =>
+              goal.now === 1 ? (
+                <></>
+              ) : (
+                <Card
+                  value={String(goal.id)}
+                  level={goal.step}
+                  title={goal.subject}
+                  subTitle={goal.content}
+                  contentTitle1={goal.mission1}
+                  contentTitle2={goal.mission2}
+                  contentTitle3={goal.mission3}
+                  goalId={goal.id}
+                  category={category}
+                  setTodayGoalDepress={setTodayGoalDepress}
+                  setTodayRestGoal={setTodayRestGoal}
+                  setTodayWorryGoal={setTodayWorryGoal}
+                  setTodayStressGoal={setTodayStressGoal}
+                />
+              )
+            )}
+        </>
+      );
+    else if (category === 3)
+      return (
+        <>
+          {todayWorryGoal &&
+            todayWorryGoal.map((goal) =>
+              goal.now === 1 ? (
+                <></>
+              ) : (
+                <Card
+                  value={String(goal.id)}
+                  level={goal.step}
+                  title={goal.subject}
+                  subTitle={goal.content}
+                  contentTitle1={goal.mission1}
+                  contentTitle2={goal.mission2}
+                  contentTitle3={goal.mission3}
+                  goalId={goal.id}
+                  category={category}
+                  setTodayGoalDepress={setTodayGoalDepress}
+                  setTodayRestGoal={setTodayRestGoal}
+                  setTodayWorryGoal={setTodayWorryGoal}
+                  setTodayStressGoal={setTodayStressGoal}
+                />
+              )
+            )}
+        </>
+      );
+    else if (category === 4)
+      return (
+        <>
+          {todayStressGoal &&
+            todayStressGoal.map((goal) =>
+              goal.now === 1 ? (
+                <></>
+              ) : (
+                <Card
+                  value={String(goal.id)}
+                  level={goal.step}
+                  title={goal.subject}
+                  subTitle={goal.content}
+                  contentTitle1={goal.mission1}
+                  contentTitle2={goal.mission2}
+                  contentTitle3={goal.mission3}
+                  goalId={goal.id}
+                  category={category}
+                  setTodayGoalDepress={setTodayGoalDepress}
+                  setTodayRestGoal={setTodayRestGoal}
+                  setTodayWorryGoal={setTodayWorryGoal}
+                  setTodayStressGoal={setTodayStressGoal}
+                />
+              )
+            )}
+        </>
+      );
   };
 
   return (
@@ -160,18 +289,38 @@ function TodayGoal() {
         </CategoryBox>
 
         <Tabs.Panel value='우울' pt='xs'>
-          <Contents />
+          <Accordion
+            variant='separated'
+            style={{ marginLeft: "7%", marginRight: "7%" }}
+          >
+            <Contents category={1} />
+          </Accordion>
         </Tabs.Panel>
 
         <Tabs.Panel value='불안' pt='xs'>
-          <Contents />
+          <Accordion
+            variant='separated'
+            style={{ marginLeft: "7%", marginRight: "7%" }}
+          >
+            <Contents category={2} />
+          </Accordion>
         </Tabs.Panel>
 
         <Tabs.Panel value='걱정' pt='xs'>
-          <Contents />
+          <Accordion
+            variant='separated'
+            style={{ marginLeft: "7%", marginRight: "7%" }}
+          >
+            <Contents category={3} />
+          </Accordion>
         </Tabs.Panel>
         <Tabs.Panel value='스트레스' pt='xs'>
-          <Contents />
+          <Accordion
+            variant='separated'
+            style={{ marginLeft: "7%", marginRight: "7%" }}
+          >
+            <Contents category={4} />
+          </Accordion>
         </Tabs.Panel>
       </Tabs>
     </div>
@@ -189,7 +338,21 @@ export const Tag = ({ title, time }) => {
   );
 };
 
-export const Card = ({ value, level, title, subTitle }) => {
+export const Card = ({
+  value,
+  level,
+  title,
+  category,
+  subTitle,
+  contentTitle1,
+  contentTitle2,
+  contentTitle3,
+  goalId,
+  setTodayGoalDepress,
+  setTodayRestGoal,
+  setTodayWorryGoal,
+  setTodayStressGoal,
+}) => {
   return (
     <Accordion.Item
       value={value}
@@ -218,10 +381,27 @@ export const Card = ({ value, level, title, subTitle }) => {
           borderRadius: 12,
         }}
       >
-        <Tag title={"잠자리 정리하기"} time={10} />
-        <Tag title={"잠자리 정리하기"} time={10} />
-        <Tag title={"잠자리 정리하기"} time={10} />
-        <TagButton>목표 도전하기</TagButton>
+        <Tag title={contentTitle1} time={10} />
+        <Tag title={contentTitle2} time={10} />
+        <Tag title={contentTitle3} time={10} />
+        <TagButton
+          onClick={() => {
+            customAxios
+              .post("/user/goal", { goal_id: goalId, category: category })
+              .then((res) => {
+                console.log(res.data);
+                if (category === 1) setTodayGoalDepress(res.data);
+                else if (category === 2) setTodayRestGoal(res.data);
+                else if (category === 3) setTodayWorryGoal(res.data);
+                else if (category === 4) setTodayStressGoal(res.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          }}
+        >
+          목표 도전하기
+        </TagButton>
       </Accordion.Panel>
     </Accordion.Item>
   );

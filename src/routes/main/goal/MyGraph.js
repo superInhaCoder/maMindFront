@@ -1,9 +1,13 @@
 import { Group, Progress, Stack } from "@mantine/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { ChevronLeft } from "tabler-icons-react";
-import { SpaceBetween } from "../GoalPage";
+import { ChevronLeft, Sum } from "tabler-icons-react";
+import { EmptyBox } from "../../../components/Component";
+import { customAxios } from "../../../config/api";
+import { myGraphState } from "../../../state/PageData";
+import { Body } from "../GoalPage";
 import { Row } from "./TodayGoal";
 
 const TopNav = styled.div`
@@ -46,7 +50,6 @@ const SubTitleB = styled.div`
 `;
 
 const MidText = styled.div`
-  margin-top: 20px;
   margin-bottom: 8px;
   font-size: 13px;
   font-family: HanSanBold;
@@ -59,15 +62,22 @@ const SmallText = styled.div`
   font-family: HanSanMedium;
 `;
 
+const SmallTextBox = styled.div`
+  height: 20px;
+  display: flex;
+  flex: 1;
+`;
+
 const CardBox = styled.div`
   height: 70px;
   display: flex;
   flex: 1;
   align-items: center;
-  padding: 15px;
+  padding-left: 20px;
   margin: 5px -10px;
   border-radius: 10px;
   background-color: #ffffff;
+  padding: 0 0;
 `;
 
 const IconBox = styled.div`
@@ -76,14 +86,59 @@ const IconBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-left: 20px;
   border-radius: 10px;
   background-color: ${(props) => props.color};
 `;
 
+const SpaceBetween = styled.div`
+  width: 100vw;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10%;
+`;
+
+const Button = styled.button`
+  min-height: 55px;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 9%;
+  padding: 10px 7%;
+  background-color: #e3ddff;
+  border-radius: 10px;
+  box-shadow: 1px 1px 10px 1px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  font-family: HanSanMedium;
+`;
+
 function MyGraph() {
   const navigate = useNavigate();
+
+  const [myGraph, setMyGraph] = useRecoilState(myGraphState);
+  const [graphSum, setGraphSum] = useState(0);
+
+  useEffect(() => {
+    customAxios
+      .get("/user/goal/cal")
+      .then((res) => {
+        console.log(res.data);
+        setMyGraph(res.data);
+        setGraphSum(graphSum + res.data.우울);
+        setGraphSum(graphSum + res.data.스트레스);
+        setGraphSum(graphSum + res.data.불안);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
   return (
-    <div>
+    <Body>
       <TopNav
         onClick={() => {
           navigate(-1);
@@ -103,51 +158,80 @@ function MyGraph() {
           <SubTitleP>9% </SubTitleP>
           <SubTitleB>높습니다.</SubTitleB>
         </Group>
+        <EmptyBox height={30} />
         <MidText>목표 비율</MidText>
         <Progress
           sections={[
-            { value: 40, color: "#866EF4" },
-            { value: 25, color: "#1AFFAD" },
-            { value: 35, color: "#FFC81A" },
+            { value: (myGraph.우울 / graphSum) * 100, color: "#866EF4" },
+            { value: (myGraph.스트레스 / graphSum) * 100, color: "#1AFFAD" },
+            { value: (myGraph.불안 / graphSum) * 100, color: "#FFC81A" },
           ]}
         />
-        <Row>
-          <SmallText>검사 내용</SmallText>
-          <SmallText>달성율</SmallText>
-          <SmallText>목표 횟수</SmallText>
-        </Row>
-        <CardBox>
+        <SmallTextBox>
           <SpaceBetween>
-            <IconBox color={"#866EF4"}>
-              <img src='icon/emoji_01.svg' />
-            </IconBox>
-            <MidText>우울증 관련 목표</MidText>
-            <MidText>50%</MidText>
-            <MidText color={"#866EF4"}>2회</MidText>
+            <IconBox color={"#f4f4f4"} />
+            <SmallText style={{ width: "100px" }}>검사 내용</SmallText>
+            <SmallText
+              style={{
+                width: "40px",
+                textAlign: "right",
+              }}
+            >
+              달성율
+            </SmallText>
+            <SmallText
+              style={{
+                width: "60px",
+                textAlign: "right",
+              }}
+            >
+              목표 횟수
+            </SmallText>
           </SpaceBetween>
-        </CardBox>
+        </SmallTextBox>
         <CardBox>
-          <SpaceBetween>
-            <IconBox color={"#1AFFAD"}>
-              <img src='icon/emoji_02.svg' />
-            </IconBox>
-            <MidText>우울증 관련 목표</MidText>
-            <MidText>50%</MidText>
-            <MidText color={"#1AFFAD"}>2회</MidText>
-          </SpaceBetween>
-        </CardBox>
-        <CardBox>
+          <IconBox color={"#866EF4"}>
+            <img src='icon/emoji_01.svg' />
+          </IconBox>
           <SpaceBetween style={{ lineHeight: "70px" }}>
-            <IconBox color={"#FFC81A"}>
-              <img src='icon/emoji_03.svg' />
-            </IconBox>
-            <MidText>우울증 관련 목표</MidText>
-            <MidText>50%</MidText>
-            <MidText color={"#FFC81A"}>2회</MidText>
+            <MidText style={{ width: "110px" }}>우울증 관련 목표</MidText>
+            <MidText style={{ width: "40px" }}>
+              {(myGraph.우울 / graphSum) * 100}%
+            </MidText>
+            <MidText color={"#866EF4"}>{myGraph.우울}회</MidText>
+          </SpaceBetween>
+        </CardBox>
+        <CardBox>
+          <IconBox color={"#1AFFAD"}>
+            <img src='icon/emoji_02.svg' />
+          </IconBox>
+          <SpaceBetween style={{ lineHeight: "70px" }}>
+            <MidText style={{ width: "110px" }}>불안 관련 목표</MidText>
+            <MidText style={{ width: "40px" }}>
+              {(myGraph.불안 / graphSum) * 100}%
+            </MidText>
+            <MidText color={"#2DDF9F"}>{myGraph.불안}회</MidText>
+          </SpaceBetween>
+        </CardBox>
+        <CardBox>
+          <IconBox color={"#FFC81A"}>
+            <img src='icon/emoji_03.svg' />
+          </IconBox>
+          <SpaceBetween style={{ lineHeight: "70px" }}>
+            <MidText style={{ width: "110px" }}>스트레스 관련 목표</MidText>
+            <MidText style={{ width: "40px" }}>
+              {(myGraph.스트레스 / graphSum) * 100}%
+            </MidText>
+            <MidText color={"#FD5252"}>{myGraph.스트레스}회</MidText>
           </SpaceBetween>
         </CardBox>
       </Paper>
-    </div>
+      <Button>
+        <img src='icon/history.svg' />
+        지난 나의 목표 확인하기
+        <div />
+      </Button>
+    </Body>
   );
 }
 

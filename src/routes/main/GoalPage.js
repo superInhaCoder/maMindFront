@@ -6,12 +6,13 @@ import styled from "styled-components";
 import { BorderRadius } from "tabler-icons-react";
 import { EmptyBox } from "../../components/Component";
 import BottomNavComponent from "../../components/pageForm/BottomNavComponent";
+import { customAxios } from "../../config/api";
 import { bottomMenuState } from "../../state/CommonData";
 import { GOAL } from "../../utils/status";
 import MyGoal from "./goal/MyGoal";
 import TodayGoal, { Row } from "./goal/TodayGoal";
 
-const TopNavContainer = styled.div`
+export const TopNavContainer = styled.div`
   height: 116px;
   width: 100%;
   display: flex;
@@ -22,13 +23,13 @@ const TopNavContainer = styled.div`
   border-bottom: #e8e8e8 2px solid;
 `;
 
-const Body = styled.div`
+export const Body = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
 `;
 
-const Bar = styled.div`
+export const Bar = styled.div`
   height: 22.5px;
   width: 2px;
   background-color: black;
@@ -47,7 +48,10 @@ const GoalPage = () => {
   const [currentMenu, setCurrentMenu] = useRecoilState(bottomMenuState);
   const [activeTab, setActiveTab] = useState("today");
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    customAxios.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjc1NjYxOTI5LCJpYXQiOjE2NzUwNTcxMjksImp0aSI6ImM1Y2U3MjFmM2ZjYjQ3NjY4ODY5Y2FiZmJiNDcwMGJhIiwiaWQiOiJlODNiMzIwZi1hZmZmLTQ4MzgtYmEzNy1iODk3NDNmNmNiODkifQ.I9zQT4Le41kTcbNN3ePrKv7e7Rks5O7bKNklP3_9Ju0`;
     setCurrentMenu(GOAL);
   }, []);
 
