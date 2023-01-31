@@ -105,7 +105,7 @@ const TestPage = () => {
     )
       return;
     customAxios
-      .post("/testitem", { type: 2 })
+      .post("/testitem", { type: localStorage.getItem("testType") })
       .then((res) => {
         setTestItem(res.data);
       })
@@ -116,45 +116,45 @@ const TestPage = () => {
   }, [localStorage.getItem("testType")]);
 
   return (
-    <Container className="bg-white" size={1200}>
-      <Stack className="mx-2" spacing={0}>
+    <Container className='bg-white' size={1200}>
+      <Stack className='mx-2' spacing={0}>
         {step === 0 ? (
           <>
             <Stack
               onClick={() => {
                 navigate("/recommend");
               }}
-              className="mt-20"
+              className='mt-20'
             >
               <ChevronLeft />
             </Stack>
-            <Stack className="mt-12">
-              <p className="m-0 p-0 font-bold text-xl animate-fadeLessUp text-center">
+            <Stack className='mt-12'>
+              <p className='m-0 p-0 font-bold text-xl animate-fadeLessUp text-center'>
                 홀로 이겨내기 위한
               </p>
-              <p className="p-0 font-bold text-2xl animate-fadeLessUp text-center">
+              <p className='p-0 font-bold text-2xl animate-fadeLessUp text-center'>
                 우울증 마주하기 테스트
               </p>
             </Stack>
-            <Center className="mt-12">
-              <img src="/mind_login.svg" width={253} height={176} />
+            <Center className='mt-12'>
+              <img src='/mind_login.svg' width={253} height={176} />
             </Center>
 
-            <Stack className="mt-6" spacing={0}>
-              <p className="text-md text-center">
+            <Stack className='mt-6' spacing={0}>
+              <p className='text-md text-center'>
                 요즘 파도처럼 출렁이는 내 감정
               </p>
-              <p className="text-md text-center">MBTI 우울증 검사로 알아보기</p>
+              <p className='text-md text-center'>MBTI 우울증 검사로 알아보기</p>
             </Stack>
-            <Stack className="mt-32">
+            <Stack className='mt-32'>
               <Button
                 onClick={() => {
                   setStep(1);
                 }}
                 rightIcon={<ChevronRight />}
-                size="xl"
-                radius="md"
-                color="violet"
+                size='xl'
+                radius='md'
+                color='violet'
               >
                 테스트 시작하기
               </Button>
@@ -165,9 +165,9 @@ const TestPage = () => {
         )}
         {step === 1 ? (
           <>
-            <div className="bg-white h-[120px] sticky top-0 z-50 flex justify-between items-center">
-              <Stack className="w-full">
-                <Group position="apart" className="mt-8 w-full">
+            <div className='bg-white h-[120px] sticky top-0 z-50 flex justify-between items-center'>
+              <Stack className='w-full'>
+                <Group position='apart' className='mt-8 w-full'>
                   <ChevronLeft
                     onClick={() => {
                       if (sectionIndex !== 0) setSectionIndex(sectionIndex - 1);
@@ -175,7 +175,7 @@ const TestPage = () => {
                     size={20}
                     color={sectionIndex === 0 ? "white" : "black"}
                   />
-                  <span className="text-[20px]">우울증 마주하기 검사</span>
+                  <span className='text-[20px]'>우울증 마주하기 검사</span>
                   <X
                     onClick={() => {
                       navigate(-1);
@@ -184,15 +184,15 @@ const TestPage = () => {
                   />
                 </Group>
                 <Progress
-                  className="mb-8"
+                  className='mb-8'
                   value={((sectionIndex + 1) * 100 * 5) / testItem.length}
-                  size="xl"
-                  color="violet"
+                  size='xl'
+                  color='violet'
                 />
               </Stack>
             </div>
 
-            <Center className="mt-12">
+            <Center className='mt-12'>
               <img src={imageList[sectionIndex]} width={240} height={168} />
             </Center>
             {testItem.map(({ content }, i) => {
@@ -200,10 +200,10 @@ const TestPage = () => {
                 <Stack key={i}>
                   {i >= sectionIndex * 5 && i < sectionIndex * 5 + 5 ? (
                     <Stack spacing={0}>
-                      <Stack className="mt-6" spacing={0}>
+                      <Stack className='mt-6' spacing={0}>
                         <span>
-                          <Grid className="w-full" mt={20}>
-                            <Grid.Col span="content">
+                          <Grid className='w-full' mt={20}>
+                            <Grid.Col span='content'>
                               <span
                                 className={`${
                                   isTouched[i] === false
@@ -214,8 +214,8 @@ const TestPage = () => {
                                 Q. {i + 1}{" "}
                               </span>
                             </Grid.Col>
-                            <Grid.Col span="auto">
-                              <span className="mt-4 text-md text-center font-bold text-lg animate-fadeLessUp">
+                            <Grid.Col span='auto'>
+                              <span className='mt-4 text-md text-center font-bold text-lg animate-fadeLessUp'>
                                 {(testItem[i] || { content: "" }).content}
                               </span>
                             </Grid.Col>
@@ -224,7 +224,7 @@ const TestPage = () => {
                       </Stack>
                       <SegmentedControl
                         color={isTouched[i] === false ? "gray" : "violet"}
-                        size="xl"
+                        size='xl'
                         value={answer[i].toString()}
                         onChange={(value) => {
                           let changedAnswer = answer.map((cur, idx) => {
@@ -247,9 +247,9 @@ const TestPage = () => {
                           { label: "", value: "5" },
                         ]}
                       />
-                      <Group position="apart">
-                        <span className="text-md font-bold">매우 아니다</span>
-                        <span className="text-md font-bold">매우 그렇다</span>
+                      <Group position='apart'>
+                        <span className='text-md font-bold'>매우 아니다</span>
+                        <span className='text-md font-bold'>매우 그렇다</span>
                       </Group>
                     </Stack>
                   ) : (
@@ -258,10 +258,10 @@ const TestPage = () => {
                 </Stack>
               );
             })}
-            <Stack className="h-[120px] w-full" />
-            <Stack className="z-50 sticky bottom-8">
+            <Stack className='h-[120px] w-full' />
+            <Stack className='z-50 sticky bottom-8'>
               <Button
-                className="shadow-xl"
+                className='shadow-xl'
                 onClick={() => {
                   if ((sectionIndex + 1) * 5 >= testItem.length) {
                     let sum = 0;
@@ -296,9 +296,9 @@ const TestPage = () => {
                     }, 50);
                   }
                 }}
-                size="xl"
-                radius="md"
-                color="violet"
+                size='xl'
+                radius='md'
+                color='violet'
                 disabled={!validation()}
               >
                 {(sectionIndex + 1) * 5 >= testItem.length
@@ -311,19 +311,19 @@ const TestPage = () => {
           <></>
         )}
         {step >= 2 ? (
-          <Stack className="flex  justify-center">
-            <Stack className="mt-[380px]">
+          <Stack className='flex  justify-center'>
+            <Stack className='mt-[380px]'>
               <Center>
-                <img src="/onboarding_logo.svg" width={145} height={44} />
+                <img src='/onboarding_logo.svg' width={145} height={44} />
               </Center>
               <Center>
                 {step === 2 ? (
-                  <Loader className="my-8" color="violet" size="md" />
+                  <Loader className='my-8' color='violet' size='md' />
                 ) : (
-                  <CircleCheck size={32} color="purple" />
+                  <CircleCheck size={32} color='purple' />
                 )}
               </Center>
-              <p className="text-center text-md ">
+              <p className='text-center text-md '>
                 최근 감정을 마주하는 중입니다.
               </p>
             </Stack>

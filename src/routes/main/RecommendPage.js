@@ -94,7 +94,7 @@ const RecommendPage = () => {
             <p className='my-4 text-xl font-bold'>😵‍💫 #나의 불안 진단하기</p>
             <Stack
               onClick={() => {
-                localStorage.setItem("testType", 2);
+                localStorage.setItem("testType", 3);
                 navigate("/test");
               }}
             >
@@ -107,7 +107,7 @@ const RecommendPage = () => {
             </Stack>
             <Stack
               onClick={() => {
-                localStorage.setItem("testType", 2);
+                localStorage.setItem("testType", 3);
                 navigate("/test");
               }}
             >
@@ -122,7 +122,7 @@ const RecommendPage = () => {
             <p className='my-4 text-xl font-bold'>🐡 #나의 스트레스 진단하기</p>
             <Stack
               onClick={() => {
-                localStorage.setItem("testType", 2);
+                localStorage.setItem("testType", 4);
                 navigate("/test");
               }}
             >
@@ -136,7 +136,7 @@ const RecommendPage = () => {
 
             <Stack
               onClick={() => {
-                localStorage.setItem("testType", 2);
+                localStorage.setItem("testType", 4);
                 navigate("/test");
               }}
             >
