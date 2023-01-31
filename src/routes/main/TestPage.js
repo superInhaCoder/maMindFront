@@ -311,8 +311,8 @@ const TestPage = () => {
           <></>
         )}
         {step >= 2 ? (
-          <Stack className="flex items-center justify-center h-[100vh]">
-            <Stack>
+          <Stack className="flex  justify-center">
+            <Stack className="mt-[380px]">
               <Center>
                 <img src="/onboarding_logo.svg" width={145} height={44} />
               </Center>

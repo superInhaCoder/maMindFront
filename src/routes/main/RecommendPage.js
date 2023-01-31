@@ -65,39 +65,75 @@ const RecommendPage = () => {
               "#CAC9FF"
             )}
           </Stack>
-          {testCard(
-            "START-UP",
-            "유독 우울했던 오늘 하루를 위해",
-            "MBTI 우울증 마주하기 검사",
-            "#9795E7"
-          )}
+          <Stack
+            onClick={() => {
+              localStorage.setItem("testType", 2);
+              navigate("/test");
+            }}
+          >
+            {testCard(
+              "START-UP",
+              "유독 우울했던 오늘 하루를 위해",
+              "MBTI 우울증 마주하기 검사",
+              "#9795E7"
+            )}
+          </Stack>
           <p className="my-4 text-xl font-bold">😵‍💫 #나의 불안 진단하기</p>
-          {testCard(
-            "2nd-Test",
-            "유독 우울했던 오늘 하루를 위해",
-            "자존감 검사",
-            "#85F3CC"
-          )}
-          {testCard(
-            "START-UP",
-            "내일을 향한 발걸음",
-            "불안 환경 발견 심리 검사",
-            "#5BFFC5"
-          )}
+          <Stack
+            onClick={() => {
+              localStorage.setItem("testType", 2);
+              navigate("/test");
+            }}
+          >
+            {testCard(
+              "2nd-Test",
+              "유독 우울했던 오늘 하루를 위해",
+              "자존감 검사",
+              "#85F3CC"
+            )}
+          </Stack>
+          <Stack
+            onClick={() => {
+              localStorage.setItem("testType", 2);
+              navigate("/test");
+            }}
+          >
+            {testCard(
+              "START-UP",
+              "내일을 향한 발걸음",
+              "불안 환경 발견 심리 검사",
+              "#5BFFC5"
+            )}
+          </Stack>
 
           <p className="my-4 text-xl font-bold">🐡 #나의 스트레스 진단하기</p>
-          {testCard(
-            "START-UP",
-            "내일을 향한 발걸음",
-            "불안 환경 발견 검사",
-            "#FFE287"
-          )}
-          {testCard(
-            "START-UP",
-            "내일을 향한 발걸음",
-            "스트레스 환경 발견 테스트",
-            "#FFD75A"
-          )}
+          <Stack
+            onClick={() => {
+              localStorage.setItem("testType", 2);
+              navigate("/test");
+            }}
+          >
+            {testCard(
+              "START-UP",
+              "내일을 향한 발걸음",
+              "불안 환경 발견 검사",
+              "#FFE287"
+            )}
+          </Stack>
+
+          <Stack
+            onClick={() => {
+              localStorage.setItem("testType", 2);
+              navigate("/test");
+            }}
+          >
+            {testCard(
+              "START-UP",
+              "내일을 향한 발걸음",
+              "스트레스 환경 발견 테스트",
+              "#FFD75A"
+            )}
+          </Stack>
           <Group
             position="center"
             className="flex items-center justify-center cursor-pointer h-16 w-16 rounded-full bg-white shadow-lg fixed right-6 bottom-10"
